@@ -1,0 +1,25 @@
+{
+  "name": "origin/origin_framework",
+  "description": "The origin framework for php.",
+  "homepage": "https://github.com/shenqiwei/origin_framework",
+  "keywords": ["php","framework","open source"],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "php": ">=7.4",
+    "ext-pdo": "*",
+    "ext-mongodb": "*",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "ext-mbstring": "*",
+    "ext-gd": "*",
+    "ext-redis": "*",
+    "ext-sockets": "*"
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  }
+}

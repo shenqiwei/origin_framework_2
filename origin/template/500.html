@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Origin Error Message</title>
+    <style>
+        body{background-color:#115990; font-family:微软雅黑; font-size:16px; color:floralwhite; top:0; left:0;}
+        .main{width:90%; min-width:480px; padding: 0 0 0 0; margin: 0 auto;}
+        .status{font-size:60px; padding-top:20px; padding-bottom: 20px;}
+        .content{min-height:120px;  padding-bottom: 20px;}
+        .table{ width: 100%}
+        .table .table_context{padding:0.5em 1.5em;}
+        .origin{text-align: right;padding-right:20%; padding-top:20px;}
+        a{color:floralwhite; cursor:pointer; text-decoration: none;}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="status">&lt;Error:&gt;</div>
+    <div class="content">
+        <table class="table">
+            <tr>
+                <td class="table_context">File : <?php echo($_error_msg["file"]);?></td>
+            </tr>
+            <tr>
+                <td class="table_context">Line : <?php echo($_error_msg["line"]);?></td>
+            </tr>
+            <tr>
+                <td class="table_context">Use : <?php echo($_error_msg["class"]);?>::<?php echo($_error_msg["function"]);?>()</td>
+            </tr>
+            <tr>
+                <td class="table_context">Error : <?php echo($_error_msg["msg"]);?></td>
+            </tr>
+        </table>
+    </div>
+    <div class="origin">Origin Framework. 2020.</div>
+</div>
+</body>
+</html>

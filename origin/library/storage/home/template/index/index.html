@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$title}</title>
+    <style>
+        html,body{ background-color: #115990; height: 100%; top:0; left: 0; padding: 0; margin: 0; color: #ffffff; }
+        .main{ width:40rem; }
+        .orange{ width: 4rem; font-size:4rem; padding:1rem 0 0 1rem; }
+        .o{ background-color: #009999; border-radius: 0.5rem; filter:alpha(opacity=94); -moz-opacity:0.94; opacity:0.94; }
+        .list ul li{ line-height: 1.5rem; }
+        .mark{ clear:both; list-style: none; line-height: 4rem; font-size:1rem; text-align: right; }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="orange"><span class="o">O</span>rigin.</div>
+    <div class="list">
+        <ul>
+            <for operation="$welcome">
+            <li>{$welcome.statement}</li>
+            </for>
+        </ul>
+    </div>
+    <div class="mark">origin framework {$year}.</div>
+</div>
+</body>
+</html>

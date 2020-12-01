@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Origin Message Receipt</title>
+    <script type="text/javascript">
+        let time = parseInt("<?php echo($_time);?>"); // 倒计时时间
+        let status = 'true';
+        function cd() {
+            if(time <= 1){
+                if(status === 'true') redirect();
+            }else if(status === 'true')time -= 1;
+            document.getElementById('time').innerHTML = time;
+        }
+        function redirect(){
+            let url = '<?php echo($_url);?>';
+            if(url === '#') window.history.back();
+            else location.href = url;
+        }
+        function pause(){
+            let act = document.getElementById('pause').innerHTML;
+            if (act === '[Pause]'){
+                document.getElementById('pause').innerHTML = '[Execute]';
+                status = 'false';
+            }else{
+                document.getElementById('pause').innerHTML = '[Pause]';
+                status = 'true';
+            }
+
+        }
+        setInterval("cd()",1000);
+    </script>
+    <style>
+        body{background-color:<?php echo($_setting["bgcolor"]);?>; font-family:微软雅黑; font-size:14px; color:<?php echo($_setting["color"]);?>; top:0; left:0;}
+        .main{width:90%; min-width:480px; padding: 0 0 0 0; margin: 0 auto;}
+        .status{font-size:60px; padding-top:20px; padding-bottom: 20px;}
+        .content{min-height:120px; padding-bottom: 20px;}
+        .jump{text-align: right; padding-bottom: 20px;}
+        .origin{text-align: right}
+        a{color:#adadad; cursor:pointer; text-decoration: none;}
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="status">&lt;<?php echo($_setting["title"]);?>:&gt;</div>
+    <div class="content"><?php echo($_message);?></div>
+    <div class="jump">
+        <a onclick="redirect()">[OK]</a> or
+        <a id="pause" onclick="pause()">[Pause]</a> or
+        <span id="time"><?php echo($_time);?></span> seconds after jump
+    </div>
+    <div class="origin">Origin Framework. 2019.</div>
+</div>
+</body>
+</html>
