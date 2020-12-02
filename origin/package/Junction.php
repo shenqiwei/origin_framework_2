@@ -126,8 +126,8 @@ class Junction
                             continue;
                         }
                         if(is_file(ROOT.$_class_path.$_symbol."classes".DS.ucfirst($_path_array[$_i]).".php")){
-                            $_class_path .= $_symbol.ucfirst($_path_array[$_i]).".php";
-                            $_class_namespace .= $_namespace_symbol.ucfirst($_path_array[$_i]);
+                            $_class_path .= $_symbol."classes".DS.ucfirst($_path_array[$_i]).".php";
+                            $_class_namespace .= $_namespace_symbol."Classes\\".ucfirst($_path_array[$_i]);
                             $_class = ucfirst($_path_array[$_i]);
                             break;
                         }
@@ -138,9 +138,9 @@ class Junction
                             $_class = ucfirst($_path_array[$_i]);
                             break;
                         }
-                        if(is_file(ROOT.DS."application".DS.DEFAULT_APPLICATION.DS."classes".DS.ucfirst($_class_path[$_i]).".php")){
-                            $_class_path = replace("application/{$_catalogue}/classes/".ucfirst($_class_path[$_i]).".php");
-                            $_class_namespace = "Application\\".ucfirst(DEFAULT_APPLICATION)."\\Classes\\".ucfirst($_class_path[$_i]);
+                        if(is_file(ROOT.DS."application".DS.DEFAULT_APPLICATION.DS."classes".DS.ucfirst($_path_array[$_i]).".php")){
+                            $_class_path = replace("application/{$_catalogue}/classes/".ucfirst($_path_array[$_i]).".php");
+                            $_class_namespace = "Application\\".ucfirst(DEFAULT_APPLICATION)."\\Classes\\".ucfirst($_path_array[$_i]);
                             $_class = ucfirst(ucfirst($_class_path[$_i]));
                             break;
                         }
