@@ -53,9 +53,10 @@ class Database extends Query
      * @access public
      * @param string|null $connect_name 数据源配置名称
      * @param int $type 数据库类型，默认值 0 <mysql|mariadb>
+     * @return void
      * @context 构造函数，用于预加载数据源配置信息
     */
-    function __construct(?string $connect_name=null, int $type=0)
+    public function __construct(?string $connect_name=null, int $type=0)
     {
         # 保存数据源类型
         $this->DataType = intval($type);
@@ -131,7 +132,7 @@ class Database extends Query
      * @return int
      * @context 返回查询信息的总数
      */
-    function count()
+    public function count()
     {
         $_field = (!is_null($this->Field))?"count({$this->Field})":"count(*)";
         # 起始结构
@@ -145,7 +146,7 @@ class Database extends Query
      * @return mixed
      * @context 查询信息函数
      */
-    function select()
+    public function select()
     {
         # 求总和
         if(!is_null($this->Total)){
@@ -189,7 +190,7 @@ class Database extends Query
      * @return mixed
      * @context 插入信息函数
      */
-    function insert()
+    public function insert()
     {
         $_columns = null;
         $_values = null;
@@ -221,7 +222,7 @@ class Database extends Query
      * @return mixed
      * @context 修改信息函数
      */
-    function update()
+    public function update()
     {
         $_columns = null;
         for($_i = 0; $_i < count($this->Data); $_i++){
@@ -250,7 +251,7 @@ class Database extends Query
      * @return mixed
      * @context 删除信息函数
      */
-    function delete()
+    public function delete()
     {
         # 执行主函数
         $_sql = "delete from {$this->Table} {$this->Where}";
@@ -264,7 +265,7 @@ class Database extends Query
      * @return mixed
      * @context 自定义语句执行函数
      */
-    function query(string $query)
+    public function query(string $query)
     {
         # 创建返回信息变量
         $_receipt = null;
@@ -320,18 +321,20 @@ class Database extends Query
 
     /**
      * @access public
+     * @return void
      * @context 执行事务提交
      */
-    function getCommit()
+    public function getCommit()
     {
         $this->Connect->commit();
     }
 
     /**
      * @access public
+     * @return void
      * @context 执行事务回滚
      */
-    function getRollBack()
+    public function getRollBack()
     {
         $this->Connect->rollBack();
     }
@@ -341,7 +344,7 @@ class Database extends Query
      * @return int
      * @contact 返回select查询条数信息
      */
-    function getRowCount()
+    public function getRowCount()
     {
         return $this->RowCount;
     }
@@ -356,7 +359,7 @@ class Database extends Query
      * @return array
      * @contact 分页
      */
-    function paging(string $url, int $count, int $current=1, int $row=10, string $search=null){
+    public function paging(string $url, int $count, int $current=1, int $row=10, string $search=null){
         $page=array(
             # 基本参数
             'url'=>$url, # 连接地址
@@ -409,7 +412,7 @@ class Database extends Query
      * @return array
      * @contact 页脚
      */
-    function footer(array $page,int  $cols=5){
+    public function footer(array $page,int  $cols=5){
         //执行数字页码
         $n=array();
         if($page['count']>$cols){
@@ -434,11 +437,13 @@ class Database extends Query
         }
         return $n;
     }
+
     /**
      * @access public
+     * @return void
      * @contact 析构函数：数据库链接释放
      */
-    function __destruct()
+    public function __destruct()
     {
         $this->Connect = null;
     }

@@ -56,9 +56,10 @@ class Graph
      * @param int $width 画布宽度
      * @param int $height 画布高度
      * @param boolean $true 是否使用真彩创建
+     * @return void
      * @context 设置画布
      */
-    function Canvas(int $width, int $height, bool $true=false)
+    public function Canvas(int $width, int $height, bool $true=false)
     {
         $this->CanvasWidth = $width;
         $this->CanvasHeight = $height;
@@ -77,9 +78,10 @@ class Graph
      * @param int $red 设置色偏值 红（0,225）默认值 225
      * @param int $green 设置色偏值 绿（0,225）默认值 225
      * @param int $blue 设置色偏值 蓝（0,225）默认值 225
+     * @return void
      * @context 设置画布背景色
      */
-    function setBgColor(int $red = 255, int $green = 255, int $blue = 255)
+    public function setBgColor(int $red = 255, int $green = 255, int $blue = 255)
     {
         $this->Color = imagecolorallocate($this->Canvas, $red, $green, $blue);
     }
@@ -87,9 +89,10 @@ class Graph
     /**
      * @access public
      * @param string $uri
+     * @return void
      * @context 设置字体
      */
-    function setFont(string $uri)
+    public function setFont(string $uri)
     {
         if (is_file($_uri = replace(ROOT . DS . $uri)))
             $this->Font = $_uri;
@@ -98,9 +101,10 @@ class Graph
     /**
      * @access public
      * @param int $size
+     * @return void
      * @context 设置字体大小
      */
-    function setFontSize(int $size)
+    public function setFontSize(int $size)
     {
         if ($size > 0)
             $this->FontSize = intval($size);
@@ -111,9 +115,10 @@ class Graph
      * @param int $red 设置色偏值 红（0,225）默认值 225
      * @param int $green 设置色偏值 绿（0,225）默认值 225
      * @param int $blue 设置色偏值 蓝（0,225）默认值 225
+     * @return void
      * @context 设置字体颜色
      */
-    function setFontColor(int $red = 255, int $green = 255, int $blue = 255)
+    public function setFontColor(int $red = 255, int $green = 255, int $blue = 255)
     {
         $this->FontColor = imagecolorallocate($this->Canvas, $red, $green, $blue);
     }
@@ -124,9 +129,10 @@ class Graph
      * @param int $point_x 坐标轴x，默认值 0
      * @param int $point_y 坐标轴y，默认值 0
      * @param int|float $angle 旋转角度（0-90度） 默认值 0
+     * @return void
      * @context 引入文字
      */
-    function imText(string $text, int $point_x = 0, int $point_y = 0, int $angle = 0)
+    public function imText(string $text, int $point_x = 0, int $point_y = 0, int $angle = 0)
     {
         imagefttext($this->Canvas, $this->FontSize, $angle, $point_x, $point_y, $this->FontColor, $this->Font, $text);
     }
@@ -140,7 +146,7 @@ class Graph
      * @return boolean
      * @context 引入图片
      */
-    function imPic(string $uri, int $point_x = 0, int $point_y = 0, int $percent = 100)
+    public function imPic(string $uri, int $point_x = 0, int $point_y = 0, int $percent = 100)
     {
         $_receipt = false;
         list($_width, $_height) = getimagesize($uri);
@@ -198,7 +204,7 @@ class Graph
      * @return false|int|resource
      * @context 设置填充颜色
      */
-    function setColor(int $red = 255, int $green = 255, int $blue = 255)
+    public function setColor(int $red = 255, int $green = 255, int $blue = 255)
     {
         return imagecolorallocate($this->Canvas, $red, $green, $blue);
     }
@@ -217,7 +223,7 @@ class Graph
      * @return boolean
      * @context 画圆
      */
-    function circle(int $point_x = 0, int $point_y = 0, int $radius = 5, $color = null, int $type = 0)
+    public function circle(int $point_x = 0, int $point_y = 0, int $radius = 5, $color = null, int $type = 0)
     {
         return $this->arc($point_x, $point_y, $radius, $radius, 0, 360, $color, $type);
     }
@@ -239,7 +245,7 @@ class Graph
      * @return boolean
      * @context 画弧
      */
-    function arc(int $point_x = 0, int $point_y = 0, int $width = 5, int $height = 5, int $start = 0, int $end = 360, $color = null, int $type = 0)
+    public function arc(int $point_x = 0, int $point_y = 0, int $width = 5, int $height = 5, int $start = 0, int $end = 360, $color = null, int $type = 0)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -261,7 +267,7 @@ class Graph
      * @return boolean
      * @context 画椭圆
      */
-    function ellipse(int $point_x = 0, int $point_y = 0, int $width = 5, int $height = 5, $color = null, int $type = 0)
+    public function ellipse(int $point_x = 0, int $point_y = 0, int $width = 5, int $height = 5, $color = null, int $type = 0)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -282,7 +288,7 @@ class Graph
      * @return boolean
      * @context 画多边形
      */
-    function polygon(array $points, $color = null, int $type = 0)
+    public function polygon(array $points, $color = null, int $type = 0)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -305,7 +311,7 @@ class Graph
      * @return boolean
      * @context 画正方形
      */
-    function square(int $point_x = 0, int $point_y = 0, int $long = 5, $color = null, int $type = 0)
+    public function square(int $point_x = 0, int $point_y = 0, int $long = 5, $color = null, int $type = 0)
     {
         return $this->rectangle($point_x = 0, $point_y = 0, $long = 5, $long = 5, $color = null, $type = 0);
     }
@@ -321,7 +327,7 @@ class Graph
      * @return boolean
      * @context 画矩形
      */
-    function rectangle(int $point_x = 0, int $point_y = 0, int $width = 5, int $height = 5, $color = null, int $type = 0)
+    public function rectangle(int $point_x = 0, int $point_y = 0, int $width = 5, int $height = 5, $color = null, int $type = 0)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -342,7 +348,7 @@ class Graph
      * @return boolean
      * @context 画直线
      */
-    function line(int $start_x = 0, int $start_y = 0, int $end_x = 5, int $end_y = 5, $color = null)
+    public function line(int $start_x = 0, int $start_y = 0, int $end_x = 5, int $end_y = 5, $color = null)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -360,7 +366,7 @@ class Graph
      * @return boolean
      * @context 画虚线，需要画布创建为真彩
      */
-    function dotted(array $style, int $start_x = 0, int $start_y = 0, int $end_x = 5, int $end_y = 5)
+    public function dotted(array $style, int $start_x = 0, int $start_y = 0, int $end_x = 5, int $end_y = 5)
     {
         if(imagesetstyle($this->Canvas,$style))
             return imageline($this->Canvas, 0, 0, 100, 100, IMG_COLOR_STYLED);
@@ -379,7 +385,7 @@ class Graph
      * @return boolean
      * @context 画字符串
      */
-    function string(string $str, int $font = 1, int $type = 0, int $point_x = 0, int $point_y = 0, $color = null)
+    public function string(string $str, int $font = 1, int $type = 0, int $point_x = 0, int $point_y = 0, $color = null)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -401,7 +407,7 @@ class Graph
      * @return boolean
      * @context 画字符串
      */
-    function char(string $str, int $font = 1, int $type = 0, int $point_x = 0, int $point_y = 0, int $color = null)
+    public function char(string $str, int $font = 1, int $type = 0, int $point_x = 0, int $point_y = 0, int $color = null)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -420,7 +426,7 @@ class Graph
      * @return boolean
      * @context 画字符串
      */
-    function pixel(int$point_x = 0, int $point_y = 0, $color = null)
+    public function pixel(int$point_x = 0, int $point_y = 0, $color = null)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -446,7 +452,7 @@ class Graph
      * @return boolean
      * @context 图片渲染（反转）
      */
-    function filter($pic, int $type)
+    public function filter($pic, int $type)
     {
         return imagefilter($pic,$type);
     }
@@ -463,7 +469,7 @@ class Graph
      * @return boolean
      * @context 图片截取
     */
-    function cut($pic, int $start_x=0, int $start_y=0, int $width=5, int $height=5, int $canvas_x=0, int $canvas_y=0)
+    public function cut($pic, int $start_x=0, int $start_y=0, int $width=5, int $height=5, int $canvas_x=0, int $canvas_y=0)
     {
         return imagecopy($this->Canvas,$pic,$start_x,$start_y,$width,$height,$canvas_x,$canvas_y);
     }
@@ -477,7 +483,7 @@ class Graph
      * @return boolean
      * @context 旋转
     */
-    function rotate($pic, float $angle=0.0, $color=null, int $transparent=0)
+    public function rotate($pic, float $angle=0.0, $color=null, int $transparent=0)
     {
         $_color = $this->Color;
         if (!is_null($color) and (is_resource($color) or is_int($color)))
@@ -492,7 +498,7 @@ class Graph
      * @return boolean
      * @context 设置空间填充
     */
-    function fill(int $point_x=0, int $point_y=0)
+    public function fill(int $point_x=0, int $point_y=0)
     {
         return imagefill($this->Canvas, $point_x, $point_y, $this->Color);
     }
@@ -501,9 +507,10 @@ class Graph
      * @access public
      * @param string $type 图片类型
      * @param string|null $uri 存储（相对，根地址：项目根目录）路径 默认值 null
+     * @return void
      * @context 输出图像
      */
-    function output(string $type="jpg", ?string $uri=null)
+    public function output(string $type="jpg", ?string $uri=null)
     {
         $_uri = null;
         if(!is_null($uri))

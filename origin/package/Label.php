@@ -76,9 +76,10 @@ class Label
     /**
      * @access public
      * @param string $page 视图模板内容信息
+     * @return void
      * @context 构造方法 获取引用页面地址信息
      */
-    function __construct(string $page)
+    public function __construct(string $page)
     {
         $this->ViewCode = $page;
     }
@@ -88,7 +89,7 @@ class Label
      * @return string
      * @context 默认函数，用于对模板中标签进行转化和结构重组
     */
-    function execute()
+    public function execute()
     {
         # 创建初始标签标记变量
         $_obj = file_get_contents($this->ViewCode);
@@ -122,7 +123,7 @@ class Label
      * @return string
      * @context 引入结构标签解释方法
      */
-    function __include(string $obj)
+    public function __include(string $obj)
     {
         # 获取include标签信息
         $_count = preg_match_all($this->Include, $obj, $_include, PREG_SET_ORDER);
@@ -147,7 +148,7 @@ class Label
      * @return string
      * @context 变量标签解释方法
      */
-    function variable(string $obj)
+    public function variable(string $obj)
     {
         # 传入参数为初始化状态，对代码段进行筛选过滤
         preg_match_all($this->Variable, $obj, $_label, PREG_SET_ORDER);
@@ -240,7 +241,7 @@ class Label
      * @return string
      * @context 逻辑判断标签解释方法
      */
-    function __if(string $obj)
+    public function __if(string $obj)
     {
         # 获取if标签
         $_count = preg_match_all($this->JudgeIf,$obj , $_IF, PREG_SET_ORDER);
@@ -297,7 +298,7 @@ class Label
      * @return string
      * @context 逻辑批处理方法
      */
-    function symbol(string $symbol)
+    public function symbol(string $symbol)
     {
         $_symbol = array(
             "gt" => ">","lt" => "<","ge" => ">=","le" => "<=",
@@ -317,7 +318,7 @@ class Label
      * @return string
      * @context for标签结构解释方法
      */
-    function __for(string $obj)
+    public function __for(string $obj)
     {
         # 获取当前代码段中是否存在foreach标签
         $_count = preg_match_all($this->ForBegin, $obj, $_begin, PREG_SET_ORDER);
@@ -402,7 +403,7 @@ class Label
      * @return string
      * @context foreach循环标签解释方法
      */
-    function __foreach(string $obj)
+    public function __foreach(string $obj)
     {
         $_count = preg_match_all($this->ForeachBegin, $obj, $_begin, PREG_SET_ORDER);
         for($_i = 0;$_i < $_count;$_i++){

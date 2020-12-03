@@ -24,9 +24,10 @@ class Session
 
     /**
      * @access public
+     * @return void
      * @context 构造函数
     */
-    function __construct()
+    public function __construct()
     {
         if(!ini_get('session.auto_start')) session_start();
     }
@@ -38,7 +39,7 @@ class Session
      * @return mixed
      * @context session会话设置
      */
-    function edit(string $option, ?string $key=null)
+    public function edit(string $option, ?string $key=null)
     {
         $_receipt = null;
         if($option == self::SESSION_ID) $_receipt = session_id();
@@ -58,10 +59,10 @@ class Session
      * @access public
      * @param string $key 会话键名
      * @param mixed $value 值
-     * @return null
+     * @return void
      * @context 创建会话值内容
      */
-    function set(string $key, $value)
+    public function set(string $key, $value)
     {
         # 判断session传入参数是否有名称分割符号
         if(strpos($key, '.'))
@@ -95,7 +96,6 @@ class Session
             # 当值参数不等于null时，则修改当前session会话内容，并对内容进行转码
             $_SESSION[$key] = stripslashes($value);
         }
-        return null;
     }
 
     /**
@@ -104,7 +104,7 @@ class Session
      * @return mixed
      * @context 获取会话值内容
      */
-    function get(string $key)
+    public function get(string $key)
     {
         $_receipt = null;
         # 判断session传入参数是否有名称分割符号
@@ -147,9 +147,10 @@ class Session
 
     /**
      * @access public
+     * @return void
      * @context 析构函数
      */
-    function __destruct()
+    public function __destruct()
     {
         // TODO: Implement __destruct() method.
         if(!ini_get('session.auto_start')) session_commit();

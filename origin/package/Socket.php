@@ -55,9 +55,10 @@ class Socket
      * @access public
      * @param string $ip ip地址（ipv4|ipv6）
      * @param int $port 端口号，默认值 0 <无效端口号>，1-1024服务端口<非必要，请勿占用>，1025-65535<可定义端口>
+     * @return void
      * @context 构造函数，预创建套字节
      */
-    function __construct(string $ip, int $port=0)
+    public function __construct(string $ip, int $port=0)
     {
         $this->IP = $ip;
         $_validate = new Validate();
@@ -77,45 +78,50 @@ class Socket
 
     /**
      * @access public
+     * @return void
      * @context 创建TCP连接
     */
-    function tcp()
+    public function tcp()
     {
         $this->Socket = socket_create($this->IPType,SOCK_STREAM,SOL_TCP);
     }
 
     /**
      * @access public
+     * @return void
      * @context 创建UDP连接
      */
-    function udp()
+    public function udp()
     {
         $this->Socket = socket_create($this->IPType,SOCK_DGRAM,SOL_UDP);
     }
 
     /**
      * @access public
+     * @return void
      * @context 创建数据包连接
      */
-    function packet()
+    public function packet()
     {
         $this->Socket = socket_create($this->IPType,SOCK_SEQPACKET,0);
     }
 
     /**
      * @access public
+     * @return void
      * @context 创建icmp连接
      */
-    function icmp()
+    public function icmp()
     {
         $this->Socket = socket_create($this->IPType,SOCK_RAW,0);
     }
 
     /**
      * @access public
+     * @return void
      * @context 创建远程部署管理连接
      */
-    function rdm()
+    public function rdm()
     {
         $this->Socket = socket_create($this->IPType,SOCK_RDM,0);
     }
@@ -125,7 +131,7 @@ class Socket
      * @return boolean
      * @context 建立连接，函数（IPV4，UNIX）默认对该连接地址进行名称绑定,若绑定失败，可以在getError函数中获取错误信息
     */
-    function connect()
+    public function connect()
     {
         if($this->IPDomain === 1 and $this->IPDomain === 0){
             socket_bind($this->Socket,$this->IP,$this->Port);
@@ -138,7 +144,7 @@ class Socket
      * @return resource
      * @context 获取套字节连接
     */
-    function accept()
+    public function accept()
     {
         return socket_accept($this->Socket);
     }
@@ -149,7 +155,7 @@ class Socket
      * @return boolean
      * @context 执行监听，该函数仅在使用 tcp(),packet()函数生效
     */
-    function listen(int $max=1024)
+    public function listen(int $max=1024)
     {
         return socket_listen($this->Socket,$max);
     }
@@ -161,7 +167,7 @@ class Socket
      * @return boolean
      * @context 标注新的监听端口，创建连接
      */
-    function newListen(int $port, int $max=1024)
+    public function newListen(int $port, int $max=1024)
     {
         return socket_create_listen($port,$max);
     }
@@ -172,7 +178,7 @@ class Socket
      * @return boolean
      * @context 连接阻塞状态
     */
-    function block(int $status=0)
+    public function block(int $status=0)
     {
         if($status === 1)
             return socket_set_block($this->Socket);
@@ -186,7 +192,7 @@ class Socket
      * @return string|boolean
      * @context 读取数据
     */
-    function read(int $max=1024)
+    public function read(int $max=1024)
     {
         return socket_read($this->Socket, $max);
     }
@@ -198,7 +204,7 @@ class Socket
      * @return boolean
      * @context 写入数据
      */
-    function write(string $string, int $max=1024)
+    public function write(string $string, int $max=1024)
     {
         return socket_write($this->Socket,$string,$max);
     }
@@ -215,7 +221,7 @@ class Socket
      * @return int 返回字节数
      * @context 获取信息
      */
-    function recv(string &$buffer, int $max=1024, int $flag=MSG_DONTWAIT)
+    public function recv(string &$buffer, int $max=1024, int $flag=MSG_DONTWAIT)
     {
         return socket_recv($this->Socket,$buffer,$max,$flag);
     }
@@ -234,7 +240,7 @@ class Socket
      * @return int 返回字节数
      * @context 获取信息，忽略连接状态
      */
-    function recvf(string &$buffer, int $max=1024, int $flag=MSG_DONTWAIT, ?string $addr=null, int $port=0)
+    public function recvf(string &$buffer, int $max=1024, int $flag=MSG_DONTWAIT, ?string $addr=null, int $port=0)
     {
         return socket_recvfrom($this->Socket,$buffer, $max, $flag,$addr,$port);
     }
@@ -250,7 +256,7 @@ class Socket
      * @return int 返回字节数
      * @context 获取信息
      */
-    function recvm(string &$buffer, int $flag=MSG_DONTWAIT)
+    public function recvm(string &$buffer, int $flag=MSG_DONTWAIT)
     {
         return socket_recvmsg($this->Socket, $buffer,$flag);
     }
@@ -267,7 +273,7 @@ class Socket
      * @return int
      * @context 发送信息
      */
-    function send(string $buffer, int $max=1024, int $flag=MSG_DONTROUTE)
+    public function send(string $buffer, int $max=1024, int $flag=MSG_DONTROUTE)
     {
         return socket_send($this->Socket,$buffer,$max,$flag);
     }
@@ -286,7 +292,7 @@ class Socket
      * @return int
      * @context 发送信息,或略连接状态
      */
-    function sendf(string $buffer, int $max=1024, int $flag=MSG_DONTROUTE, ?string $addr=null, int $port=0)
+    public function sendf(string $buffer, int $max=1024, int $flag=MSG_DONTROUTE, ?string $addr=null, int $port=0)
     {
         return socket_sendto($this->Socket,$buffer,$max,$flag,$addr,$port);
     }
@@ -302,7 +308,7 @@ class Socket
      * @return int
      * @context 发送信息
      */
-    function sendm(array $buffer, int $flag=MSG_DONTROUTE)
+    public function sendm(array $buffer, int $flag=MSG_DONTROUTE)
     {
         return socket_sendmsg($this->Socket,$buffer,$flag);
     }
@@ -313,7 +319,7 @@ class Socket
      * @return boolean
      * @context 注销行为
      */
-    function shutdown(int $type=2)
+    public function shutdown(int $type=2)
     {
         if($type === 1 or $type === 2)
             $_type = $type;
@@ -327,7 +333,7 @@ class Socket
      * @return void
      * @context 关闭套字节请求
      */
-    function close()
+    public function close()
     {
         socket_close($this->Socket);
     }
@@ -337,7 +343,7 @@ class Socket
      * @return void
      * @context 清空错误信息
     */
-    function clear()
+    public function clear()
     {
         socket_clear_error($this->Socket);
     }
@@ -347,7 +353,7 @@ class Socket
      * @return mixed
      * @context 获取错误信息
     */
-    function getError()
+    public function getError()
     {
         $this->ErrCode = socket_last_error();
         $this->Error = socket_strerror($this->ErrCode);

@@ -141,7 +141,7 @@ class Validate
      * @return boolean
      * @context 执行正则比对验证
      */
-    function _type($variable, string $format)
+    public function _type($variable, string $format)
     {
         /**
          * @var mixed $_return
@@ -170,7 +170,7 @@ class Validate
      * @return boolean
      * @context 执行ipv4地址验证，当is_null为true时，且参数值为空，则不进行验证，反之进行验证
     */
-    function _ipv4(string $variable)
+    public function _ipv4(string $variable)
     {
         /**
          * @var mixed $_return
@@ -211,7 +211,7 @@ class Validate
      * @return boolean
      * @context 执行ipv6地址验证，当is_null为true时，且参数值为空，则不进行验证，反之进行验证
      */
-    function _ipv6(string $variable)
+    public function _ipv6(string $variable)
     {
         /**
          * @var mixed $_return
@@ -275,7 +275,12 @@ class Validate
         return $_return;
     }
 
-    function getError(){
+    /**
+     * @access public
+     * @return mixed
+     * @context 获取错误信息
+     */
+    public function getError(){
         return $this->Error;
     }
 }

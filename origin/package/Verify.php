@@ -39,9 +39,10 @@ class Verify
      * @access public
      * @param int $width 画布宽度
      * @param int $height 画布高度
+     * @return void
      * @context 构造方法，对参数结构进行预设
     */
-    function __construct(int $width=120,int $height=50)
+    public function __construct(int $width=120,int $height=50)
     {
         $this->WidthFold = round($width/$this->Width, 2);
         $this->HeightFold = round($height/$this->Height, 2);
@@ -52,6 +53,7 @@ class Verify
     /**
      * @access public
      * @param string $data 传入值
+     * @return void
      * @context 字母混合验证码主执行方法
      */
     private function execute(string $data)
@@ -111,27 +113,30 @@ class Verify
 
     /**
      * @access public
+     * @return void
      * @context 字母数字混合验证码主执行方法
      */
-    function main()
+    public function main()
     {
         $this->execute('abcdefghijklmnopqrstuvwxdyz123456789');
     }
 
     /**
      * @access public
+     * @return void
      * @context 数字验证码主执行方法
      */
-    function number()
+    public function number()
     {
         $this->execute('0123456789');
     }
 
     /**
      * @access public
+     * @return void
      * @context 字母验证码主执行方法
      */
-    function letter()
+    public function letter()
     {
         $this->execute('abcdefghijklmnopqrstuvwxdyz');
     }
@@ -139,9 +144,10 @@ class Verify
     /**
      *
      * @access public
+     * @return void
      * @context 汉字验证码主执行方法
     */
-    function han()
+    public function han()
     {
         # 创建一个对象变量
         $_image = imagecreate($this->Width, $this->Height);
@@ -241,9 +247,10 @@ class Verify
 
     /**
      * @access public
+     * @return void
      * @context 数学一元运算验证码
     */
-    function math()
+    public function math()
     {
         # 创建一个图形对象
         $_image = imagecreate($this->Width, $this->Height);

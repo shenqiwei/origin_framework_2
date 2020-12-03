@@ -62,9 +62,10 @@ class Upload
      * @param string $input 表单名称 form type is 'multipart/form-data' 该结构有效
      * @param array $type 上传文件类型
      * @param int $size 上传文件大小，默认值 0
+     * @return void
      * @context 上传条件设置函数
      */
-    function condition(string $input, array $type, int $size=0)
+    public function condition(string $input, array $type, int $size=0)
     {
         $this->Input = $input;
         $this->Type = $type;
@@ -75,9 +76,10 @@ class Upload
     /**
      * @access public
      * @param string $guide 上传文件存储路径
+     * @return void
      * @context 主目录设置函数
      */
-    function store(string $guide)
+    public function store(string $guide)
     {
         if(!is_null($guide))
             $this->Store = replace($guide);
@@ -88,7 +90,7 @@ class Upload
      * @return boolean|string
      * @context 执行上传，上传成功后返回上传文件相对路径信息
      */
-    function update()
+    public function update()
     {
         $_receipt = false;
         # 存储目录
@@ -176,7 +178,7 @@ class Upload
      * @return mixed
      * @context 获取错误信息
      */
-    function getError()
+    public function getError()
     {
         return $this->Error;
     }

@@ -8,13 +8,23 @@ use Origin\Package\Unit;
 
 class Index extends Unit
 {
-    function __construct()
+    /**
+     * @access public
+     * @return void
+     * @context 构造函数，公共参数内容编辑与公共函数功能调用
+     */
+    public function __construct()
     {
         parent::__construct();
         $this->param('title','origin framework');
     }
 
-    function index()
+    /**
+     * @access public
+     * @return void
+     * @context 首页加载函数，初始化方法内容
+     */
+    public function index()
     {
         $welcomes = array(
             array('statement' => '感谢使用Origin ver 1.0'),

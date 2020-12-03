@@ -17,9 +17,10 @@ class View
      * @param string $page 模板信息
      * @param array $param 参数值内容
      * @param float $time 起始加载时间
+     * @return void
      * @context 模板页加载方法
      */
-    static function view(string $dir, string $page, array $param, float $time)
+    public static function view(string $dir, string $page, array $param, float $time)
     {
         # 转化文件路径
         $_guide = explode('/',$dir);

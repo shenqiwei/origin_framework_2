@@ -14,16 +14,22 @@ class Curl
     /**
      * @access protected
      * @var array $CurlReceipt 请求返回信息
-     * @var boolean $CurUtf8 是否执行utf-8转码
      */
     protected array $CurlReceipt = array();
+
+    /**
+     * @access protected
+     * @var boolean $CurUtf8 是否执行utf-8转码
+     */
     protected bool $CurUtf8;
+
     /**
      * @access public
      * @param boolean $bool 设置强制utf-8编码转换
+     * @return void
      * @context 构造器
     */
-    function __construct($bool = false)
+    public function __construct($bool = false)
     {
         $this->CurUtf8 = boolval($bool);
     }
@@ -38,7 +44,7 @@ class Curl
      * @return mixed
      * @content get请求函数
      */
-    function get(string $url, array $param = array(), array$header=array(), bool $ssl_peer = false, bool $ssl_host = false)
+    public function get(string $url, array $param = array(), array$header=array(), bool $ssl_peer = false, bool $ssl_host = false)
     {
         $_receipt = null;
         if (!is_null($url)) {
@@ -75,7 +81,7 @@ class Curl
      * @return mixed
      * @content get请求函数
      */
-    function post(string $url, array $param=array(), array $header=array(), bool $ssl_peer = false, bool $ssl_host = false)
+    public function post(string $url, array $param=array(), array $header=array(), bool $ssl_peer = false, bool $ssl_host = false)
     {
         $_receipt = null;
         if (!is_null($url)) {
@@ -116,7 +122,7 @@ class Curl
      * @return mixed
      * @context 文件上传
      */
-    function upload(string $url, string $folder, string $type, array $header=array(), string $input = "pic", bool $ssl_peer = false, bool $ssl_host = false)
+    public function upload(string $url, string $folder, string $type, array $header=array(), string $input = "pic", bool $ssl_peer = false, bool $ssl_host = false)
     {
         $_curl = curl_init();
         if(!empty($header)){
@@ -134,12 +140,13 @@ class Curl
         curl_close($_curl);
         return $_receipt;
     }
+
     /**
      * @access public
      * @return mixed
      * @context 获取请求后返回值内容
     */
-    function get_curl_receipt()
+    public function get_curl_receipt()
     {
         return $this->CurlReceipt;
     }

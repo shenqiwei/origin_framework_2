@@ -34,9 +34,10 @@ class Request
      * @param string $validate_name 请求对象名称
      * @param mixed $default 默认值
      * @param string $method 请求方法
+     * @return void
      * @context 构造函数，用于对请求状态和请求获得值的过滤形式进行加载和判断，对象参数
      */
-    function __construct(string $validate_name, $default=null, string $method='request')
+    public function __construct(string $validate_name, $default=null, string $method='request')
     {
         # 请求方式正则，涵盖基本的5中表单请求，正则变量,method 用于验证请求方式，type用于转化数据类型
         $_method_regular = '/^(request|post|get|delete|put){1}$/';
@@ -102,10 +103,10 @@ class Request
 
     /**
      * @access public
-     * @return null
+     * @return void
      * @context 请求器删除方法，用于删除指定元素
     */
-    function delete(){
+    public function delete(){
         $_array = null;
         # 判断请求类型，并将请求对象中的值存入数组对象变量
         switch(strtolower($this->Method)){
@@ -122,6 +123,5 @@ class Request
                     unset($_REQUEST[$this->ValidateName]);
                 break;
         }
-        return null;
     }
 }

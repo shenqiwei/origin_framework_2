@@ -33,7 +33,7 @@ class File extends Folder
      * @return boolean
      * @context 创建文件夹
      */
-    function create(string $folder, bool $autocomplete=false, bool $throw=false)
+    public function create(string $folder, bool $autocomplete=false, bool $throw=false)
     {
         # 设置返回对象
         $_receipt = false;
@@ -78,7 +78,7 @@ class File extends Folder
      * @return boolean
      * @context 删除文件夹
      */
-    function remove(string $folder, bool $throw=false){
+    public function remove(string $folder, bool $throw=false){
         # 设置返回对象
         $_receipt = false;
         if(!file_exists($_folder = replace(ROOT.DS.$folder)))
@@ -108,7 +108,7 @@ class File extends Folder
      * @return boolean
      * @context 文件重命名
      */
-    function rename(string $folder, string $name, bool $throw=false)
+    public function rename(string $folder, string $name, bool $throw=false)
     {
         # 设置返回对象
         $_receipt = false;
@@ -153,7 +153,7 @@ class File extends Folder
      * sr: 数据结构读取操作 操作对应函数file
      * cr: 读取全文 调用对应函数 file_get_contents
      */
-    function read(string $file, string $operate=self::FILE_READ, int $size=0, bool $throw=false)
+    public function read(string $file, string $operate=self::FILE_READ, int $size=0, bool $throw=false)
     {
         # 设置返回对象
         $_receipt = false;
@@ -206,7 +206,7 @@ class File extends Folder
      * fw：补充写入 操作方式：a+
      * cw：重写 调用对应函数 file_put_contents
      */
-    function write(string $file, string $msg, string $operate=self::FILE_WRITE, bool $throw=false)
+    public function write(string $file, string $msg, string $operate=self::FILE_WRITE, bool $throw=false)
     {
         # 设置返回对象
         $_receipt = false;
@@ -268,7 +268,7 @@ class File extends Folder
      * @return mixed
      * @context 获取文件夹信息
      */
-    function get(string $folder)
+    public function get(string $folder)
     {
         $_receipt = null;
         if(file_exists($_file = replace(ROOT.DS.$folder))){

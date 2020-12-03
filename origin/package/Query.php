@@ -112,7 +112,7 @@ abstract class Query
      * @return object
      * @context 表名获取方法
      */
-    function table(string $table, ?string $table_as=null)
+    public function table(string $table, ?string $table_as=null)
     {
         # 初始化所有参与项
         $this->Table = null; # 主表名
@@ -183,7 +183,7 @@ abstract class Query
      * 多表联合匹配条件 on，与join联合使用，当field只有一个值时，系统会自动调用表格中，同名字段名
      * 当有多个条件时，可以使用数组进行结构导入
      */
-    function join(string $join_table, string $join_field, string $major_field, ?string $join_table_as=null, ?string $join_type=null)
+    public function join(string $join_table, string $join_field, string $major_field, ?string $join_table_as=null, ?string $join_type=null)
     {
         $_join_type = null;
         if(in_array(strtolower(trim($join_type)),array("inner","left","right")))
@@ -242,7 +242,7 @@ abstract class Query
      * @return object
      * @context 多表关系匹配 inner join 语句，利用join语法演化方法
      */
-    function iJoin(string $join_table, string $join_field, string $major_field, ?string $join_table_as=null)
+    public function iJoin(string $join_table, string $join_field, string $major_field, ?string $join_table_as=null)
     {
         # 根据SQL数据库命名规则判断数据表名是否符合规则要求，如果符合装在进SQL模块Table变量中
         $this->join($join_table,$join_field,$major_field,$join_table_as,"inner");
@@ -258,7 +258,7 @@ abstract class Query
      * @return object
      * @context 多表关系匹配 left join 语句，利用join语法演化方法
      */
-    function lJoin(string $join_table, string $join_field, string $major_field, ?string $join_table_as=null)
+    public function lJoin(string $join_table, string $join_field, string $major_field, ?string $join_table_as=null)
     {
         # 根据SQL数据库命名规则判断数据表名是否符合规则要求，如果符合装在进SQL模块Table变量中
         $this->join($join_table,$join_field,$major_field,$join_table_as,"left");
@@ -274,7 +274,7 @@ abstract class Query
      * @return object
      * @context 多表关系匹配 right join 语句，利用join语法演化方法
      */
-    function rJoin(string $join_table, string $join_field, string $major_field, ?string $join_table_as=null)
+    public function rJoin(string $join_table, string $join_field, string $major_field, ?string $join_table_as=null)
     {
         # 根据SQL数据库命名规则判断数据表名是否符合规则要求，如果符合装在进SQL模块Table变量中
         $this->join($join_table,$join_field,$major_field,$join_table_as,"right");
@@ -294,7 +294,7 @@ abstract class Query
      * @return object
      * @context Top 语句结构
      */
-    function top(int $number, bool $percent=false)
+    public function top(int $number, bool $percent=false)
     {
         switch($this->DataType){
             case self::RESOURCE_TYPE_MSSQL:
@@ -324,7 +324,7 @@ abstract class Query
      * @return object
      * @context 返回指定数据表数据总数
      */
-    function total(string $field='*')
+    public function total(string $field='*')
     {
         if(is_true($this->NameConfine, $field))
             $this->Total = "count({$field})";
@@ -343,7 +343,7 @@ abstract class Query
      * @return object
      * @context 查询字段名，默认信息是符号（*），当传入值是数组时，$key为原字段名，$value为简写名
      */
-    function field($field)
+    public function field($field)
     {
         # 判断field值类型是否为数组(进行传入值结构判断，如果传入值为数组并且数组元素总数大于0)
         if(is_array($field)){
@@ -408,7 +408,7 @@ abstract class Query
      * @context 列出单列字段名不同值 distinct 语句，该语句仅支持单列字段显示，如果需要显示多列信息，需要时group
      * 在一些应用场景中，可以把distinct看作是group的简化功能结构
      */
-    function distinct(string $field)
+    public function distinct(string $field)
     {
         # 进行传入值结构判断
         if(is_true($this->NameConfine, $field))
@@ -429,7 +429,7 @@ abstract class Query
      * @return object
      * @context 对多个查询语句的相同字段中的相同数据进行合并,当前版本仅支持两个表单字段查询，并对输入结构进行验证和隔离
      */
-    function union(string $table, string $field)
+    public function union(string $table, string $field)
     {
         $this->Union = null;
         # 判断传入参数表名和字段名是否符合命名规则,使用SQL命名规则对输入的表名和字段名进行验证
@@ -468,7 +468,7 @@ abstract class Query
      * @return object
      * @context 添加修改值获取方法,传入值结构为数组，数组key为字段名，数组value为传入值
      */
-    function data(array $field)
+    public function data(array $field)
     {
         /**
          * 验证传入值结构，符合数组要求时，进行内容验证
@@ -519,7 +519,7 @@ abstract class Query
      * 3.数组关系结构中，同级条件结构放在同一个上级数组内容
      * 3.当为字符串，要求条件信息符合SQL语句规则
      */
-    function where($condition)
+    public function where($condition)
     {
         /**
          * 区别数据类型使用SQL命名规则对输入的字段名进行验证
@@ -647,7 +647,7 @@ abstract class Query
      * @return object
      * @context 去重（指定字段名）显示列表信息
      */
-    function group($field)
+    public function group($field)
     {
         # 判断传入参数类型，区别数据类型使用SQL命名规则对输入的字段名进行验证
         if(is_array($field)){
@@ -703,7 +703,7 @@ abstract class Query
      * @return object
      * @context 求正整数值
     */
-    function abs($field)
+    public function abs($field)
     {
         if(is_array($field)){
             for($_i=0;$_i<count($field);$_i++){
@@ -733,7 +733,7 @@ abstract class Query
      * @return object
      * @context 查询语句指定字段值平均数，支持单字段名
      */
-    function avg($field)
+    public function avg($field)
     {
         if(is_array($field)){
             for($_i=0;$_i<count($field);$_i++){
@@ -763,7 +763,7 @@ abstract class Query
      * @return object
      * @context 查询语句指定字段中最大值，支持单字段名
      */
-    function max($field)
+    public function max($field)
     {
         if(is_array($field)){
             for($_i=0;$_i<count($field);$_i++){
@@ -794,7 +794,7 @@ abstract class Query
      * @return object
      * @context 查询语句指定字段中最小值，支持单字段名
      */
-    function min($field)
+    public function min($field)
     {
         if(is_array($field)){
             for($_i=0;$_i<count($field);$_i++){
@@ -825,7 +825,7 @@ abstract class Query
      * @return object
      * @context 返回指定字段下所有列值的总和，只支持数字型字段列
      */
-    function sum($field)
+    public function sum($field)
     {
         if(is_array($field)){
             for($_i=0;$_i<count($field);$_i++){
@@ -857,7 +857,7 @@ abstract class Query
      * @return object
      * @context 取余
     */
-    function mod($field,int $second=0)
+    public function mod($field,int $second=0)
     {
         switch($this->DataType){
             case self::RESOURCE_TYPE_SQLITE:
@@ -896,7 +896,7 @@ abstract class Query
      * @return object
      * @context 求随机数
     */
-    function random()
+    public function random()
     {
         switch ($this->DataType){
             case self::RESOURCE_TYPE_PGSQL:
@@ -928,7 +928,7 @@ abstract class Query
      * @return object
      * @context 去除左边指定字符（空格）
     */
-    function lTrim($field,?string $str=null)
+    public function lTrim($field,?string $str=null)
     {
         if(is_array($field)){
             for($_i=0;$_i<count($field);$_i++){
@@ -986,7 +986,7 @@ abstract class Query
      * @return object
      * @context 去除指定字符（空格）
      */
-    function trim($field,?string $str=null)
+    public function trim($field,?string $str=null)
     {
         if($this->DataType != self::RESOURCE_TYPE_MSSQL){
             if(is_array($field)){
@@ -1044,7 +1044,7 @@ abstract class Query
      * @return object
      * @context 去除右边指定字符（空格）
      */
-    function rTrim($field,?string $str=null)
+    public function rTrim($field,?string $str=null)
     {
         if(is_array($field)){
             for($_i=0;$_i<count($field);$_i++){
@@ -1103,7 +1103,7 @@ abstract class Query
      * @return object
      * @context 指定字符替换
     */
-    function replace($field,?string $pattern=null,?string $replace=null)
+    public function replace($field,?string $pattern=null,?string $replace=null)
     {
         if(is_array($field)){
             for($_i=0;$_i<count($field);$_i++){
@@ -1133,7 +1133,7 @@ abstract class Query
      * @context 返回指定字段信息中的字母全部大写，支持数组及字符串
      * 当含有多个字段名，使用数组，单个字段使用字符串
      */
-    function upper($field)
+    public function upper($field)
     {
         # 区别数据类型使用SQL命名规则对输入的字段名进行验证
         if(is_array($field)){
@@ -1164,7 +1164,7 @@ abstract class Query
      * @context 返回指定字段信息中的字母全部小写，支持数组及字符串
      * 当含有多个字段名，使用数组，单个字段使用字符串
      */
-    function lower($field)
+    public function lower($field)
     {
         # 区别数据类型使用SQL命名规则对输入的字段名进行验证
         if(is_array($field)){
@@ -1197,7 +1197,7 @@ abstract class Query
      * @return object
      * @context 查询语句对指定字段进行截取
     */
-    function mid($field, int $start=0, int $length=0)
+    public function mid($field, int $start=0, int $length=0)
     {
         switch($this->DataType){
             case self::RESOURCE_TYPE_MYSQL:
@@ -1251,7 +1251,7 @@ abstract class Query
      * 方法支持两种数据类型，如果只对一个字段进行操作，使用字符串类型
      * 对多个字段进行操作，则使用自然数标记数组
      */
-    function length(string $field)
+    public function length(string $field)
     {
         switch($this->DataType){
             case self::RESOURCE_TYPE_MSSQL:
@@ -1290,7 +1290,7 @@ abstract class Query
      * @return object
      * @context 对指定字段进行限定小数长度的四舍五入运算，参数同时支持
     */
-    function round($field, int $decimals = 0, int $accuracy=0)
+    public function round($field, int $decimals = 0, int $accuracy=0)
     {
         # 判断数据类型
         if(is_array($field)){
@@ -1334,7 +1334,7 @@ abstract class Query
      * @return object
      * @context 返回当前数据库时间
      */
-    function now()
+    public function now()
     {
         $this->Now = ', nowTime';
         return $this->__getSQL();
@@ -1353,7 +1353,7 @@ abstract class Query
      * @param string|null $format
      * @return object
     */
-    function format($field, ?string $format = null)
+    public function format($field, ?string $format = null)
     {
         switch ($this->DataType){
             case self::RESOURCE_TYPE_MYSQL:
@@ -1400,7 +1400,7 @@ abstract class Query
      * @return object
      * @context 函数结构应用, 单项内容操作
      */
-    function having(string $func, string $field, string $symbol, int $value)
+    public function having(string $func, string $field, string $symbol, int $value)
     {
         /**
          * 因为having运算主要用于范围所以当前版本仅支持对数字运算
@@ -1439,7 +1439,7 @@ abstract class Query
      * @return object
      * @context 查询语句排序条件
      */
-    function order(string $field, string $type='asc')
+    public function order(string $field, string $type='asc')
     {
         /**
          * 使用字符串作为唯一数据类型，通过对参数进行验证，判断参数数据结构
@@ -1485,7 +1485,7 @@ abstract class Query
      * @return object
      * @context 查询语句查询限制，有两个参数构成，起始位置，显示长度
      */
-    function limit(int $start, int $length=0)
+    public function limit(int $start, int $length=0)
     {
         if(is_int($start) and $start >= 0){
             if(is_int($length) and $length > 0){
@@ -1535,7 +1535,7 @@ abstract class Query
      * @return object
      * @context 加载列表显示结构限制
     */
-    function fetch($fetch_type=self::FETCH_NORMAL)
+    public function fetch($fetch_type=self::FETCH_NORMAL)
     {
         $_types = array(self::FETCH_NORMAL,self::FETCH_NUMBER_VALUE,self::FETCH_KEY_VALUE);
         if(in_array(strtolower(trim($fetch_type)),$_types))
@@ -1550,40 +1550,40 @@ abstract class Query
     /**
      * 查询总数结构方法，返回一个整数结果
     */
-    abstract function count();
+    public abstract function count();
 
     /**
      * 查询表格信息方法，并返回数组结果集
     */
-    abstract function select();
+    public abstract function select();
 
     /**
      * 向表插入信息方法，并返回插入成功后插入后数据id
     */
-    abstract function insert();
+    public abstract function insert();
 
     /**
      * 删除指定数据记录，并返回执行结果信息
     */
-    abstract function delete();
+    public abstract function delete();
 
     /**
      * 修改指定数据记录，并返回执行结果信息
      */
-    abstract function update();
+    public abstract function update();
 
     /**
      * 执行自定义查询语句,并返回执行结果
      * @param string $query
      */
-    abstract function query(string $query);
+    public abstract function query(string $query);
 
     /**
      * @access public
      * @return string
      * @context 返回错误信息
     */
-    function getErrorMsg()
+    public function getErrorMsg()
     {
         return $this->ErrMsg;
     }

@@ -17,9 +17,10 @@ class Lists
 
     /**
      * @access public
+     * @return void
      * @param object $connect redis主类链接信息
      */
-    function __construct(object $connect)
+    public function __construct(object $connect)
     {
         $this->Connect = $connect;
     }
@@ -31,7 +32,7 @@ class Lists
      * @return mixed
      * @context 移出并获取列表的第一个元素
      */
-    function removeFirst(array $keys, int $time)
+    public function removeFirst(array $keys, int $time)
     {
         $_receipt = $this->Connect->blPop($keys,$time);
         if ($_receipt === "nil")
@@ -46,7 +47,7 @@ class Lists
      * @return mixed
      * @context 获取列表的最后一个元素
      */
-    function removeLast(array $keys, int $time)
+    public function removeLast(array $keys, int $time)
     {
         $_receipt = $this->Connect->brPop($keys,$time);
         if ($_receipt === "nil")
@@ -62,7 +63,7 @@ class Lists
      * @return mixed
      * @context 抽取元素对象值内容，转存至目标元素对象中
      */
-    function reIn(string $key, string $write, int $time)
+    public function reIn(string $key, string $write, int $time)
     {
         $_receipt = $this->Connect->brpoplpush($key,$write,$time);
         if ($_receipt === "nil")
@@ -77,7 +78,7 @@ class Lists
      * @return mixed
      * @context 索引元素对象，并返回内容信息（大于0从左开始，小于0从右侧开始）
      */
-    function index(string $key, int $index)
+    public function index(string $key, int $index)
     {
         $_receipt = $this->Connect->lIndex($key,$index);
         if ($_receipt === "nil")
@@ -94,7 +95,7 @@ class Lists
      * @return int
      * @context 在列表的元素前或者后插入元素
      */
-    function insert(string $key, $value, $write, string $be="after")
+    public function insert(string $key, $value, $write, string $be="after")
     {
         if($be === "before"){
             $_location = 0;
@@ -110,7 +111,7 @@ class Lists
      * @return int
      * @context 返回列表的长度
      */
-    function count(string $key)
+    public function count(string $key)
     {
         return $this->Connect->lLen($key);
     }
@@ -121,7 +122,7 @@ class Lists
      * @return mixed
      * @context 移除并返回列表的第一个元素
      */
-    function popFirst(string $key)
+    public function popFirst(string $key)
     {
         $_receipt = $this->Connect->lPop($key);
         if ($_receipt === "nil")
@@ -135,7 +136,7 @@ class Lists
      * @return mixed
      * @context 移除并返回列表的最后一个元素
      */
-    function popLast(string $key)
+    public function popLast(string $key)
     {
         $_receipt = $this->Connect->rPop($key);
         if ($_receipt === "nil")
@@ -150,7 +151,7 @@ class Lists
      * @return mixed
      * @context 将元素对象列表的最后一个元素移除并返回，并将该元素添加到另一个列表
      */
-    function popWrite(string $key, string $write)
+    public function popWrite(string $key, string $write)
     {
         $_receipt = $this->Connect->rpoplpush($key,$write);
         if ($_receipt === "nil")
@@ -165,7 +166,7 @@ class Lists
      * @return int
      * @context 在列表头部插入一个或多个值
      */
-    function inFirst(string $key, $value)
+    public function inFirst(string $key, $value)
     {
         return $this->Connect->lPush($key,$value);
     }
@@ -177,7 +178,7 @@ class Lists
      * @return int
      * @context 在列表尾部插入一个或多个值
      */
-    function inLast(string $key, $value)
+    public function inLast(string $key, $value)
     {
         return $this->Connect->rPush($key,$value);
     }
@@ -189,7 +190,7 @@ class Lists
      * @return int
      * @context 在已存在的列表头部插入一个值
      */
-    function inFFirst(string $key, $value)
+    public function inFFirst(string $key, $value)
     {
         return $this->Connect->lPushx($key,$value);
     }
@@ -201,7 +202,7 @@ class Lists
      * @return int
      * @context 在已存在的列表尾部插入一个值
      */
-    function inFLast(string $key, $value)
+    public function inFLast(string $key, $value)
     {
         return $this->Connect->rPushx($key,$value);
     }
@@ -214,7 +215,7 @@ class Lists
      * @return int
      * @context 返回列表中指定区间内的元素
      */
-    function range(string $key, int $start, int $end)
+    public function range(string $key, int $start, int $end)
     {
         return $this->Connect->lRange($key,$start,$end);
     }
@@ -227,7 +228,7 @@ class Lists
      * @return int
      * @context 根据参数 COUNT 的值，移除列表中与参数 VALUE 相等的元素
      */
-    function rem(string $key, int $count, $value)
+    public function rem(string $key, int $count, $value)
     {
         return $this->Connect->lRem($key,$count,$value);
     }
@@ -240,7 +241,7 @@ class Lists
      * @return mixed
      * @context 设置索引元素对象
      */
-    function indexSet(string $key, int $index, $value)
+    public function indexSet(string $key, int $index, $value)
     {
         return $this->Connect->lSet($key,$index,$value);
     }
@@ -253,7 +254,7 @@ class Lists
      * @return mixed
      * @context 保留指定区间内的元素
      */
-    function trim(string $key, int $start, int $end)
+    public function trim(string $key, int $start, int $end)
     {
         return $this->Connect->lTrim($key,$start,$end);
     }

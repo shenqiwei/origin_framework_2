@@ -20,9 +20,10 @@ class Folder
     /**
      * @access public
      * @param string|null $root 根目录地址
+     * @return void
      * @context 构造方法
     */
-    function __construct(?string $root=null)
+    public function __construct(?string $root=null)
     {
         if(!is_null($root))
             $this->Root = $root;
@@ -39,7 +40,7 @@ class Folder
      * @return string
      * @context 断点信息返回
      */
-    function getBreakpoint()
+    public function getBreakpoint()
     {
         return $this->Breakpoint;
     }
@@ -55,7 +56,7 @@ class Folder
      * @return string
      * @context 获取错误信息
      */
-    function getError(){
+    public function getError(){
         return $this->Error;
     }
 
@@ -67,7 +68,7 @@ class Folder
      * @return boolean
      * @context 创建文件夹
      */
-    function create(string $folder, bool $autocomplete=false, bool $throw=false)
+    public function create(string $folder, bool $autocomplete=false, bool $throw=false)
     {
         # 设置返回对象
         $_receipt = false;
@@ -118,7 +119,7 @@ class Folder
      * @return boolean
      * @context 删除文件夹
      */
-    function remove(string $folder, bool $throw=false){
+    public function remove(string $folder, bool $throw=false){
         # 设置返回对象
         $_receipt = false;
         if(!file_exists($_folder = replace(ROOT.DS.$folder)))
@@ -148,7 +149,7 @@ class Folder
      * @return boolean
      * @context 文件夹重命名
      */
-    function rename(string $folder, string $name, bool $throw=false)
+    public function rename(string $folder, string $name, bool $throw=false)
     {
         # 设置返回对象
         $_receipt = false;
@@ -185,7 +186,7 @@ class Folder
      * @return mixed
      * @context 获取文件夹信息
      */
-    function get(string $folder)
+    public function get(string $folder)
     {
         $_receipt = null;
         if(file_exists($_directory = replace(ROOT.DS.$folder))){

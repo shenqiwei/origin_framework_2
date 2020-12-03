@@ -16,7 +16,7 @@ class Queue
      * @return boolean
      * @context 创建任务队列目录
      */
-    static function make(string $queue)
+    public static function make(string $queue)
     {
         # 创建返回值变量
         $_receipt = false;
@@ -39,7 +39,7 @@ class Queue
      * @return int|false
      * @context 获取当前队列任务数量
      */
-    static function count(string $queue)
+    public static function count(string $queue)
     {
         if(file_exists($_queue = replace(RESOURCE_PUBLIC."/queue/{$queue}"))){
            if(is_file($_tmp = replace("{$_queue}/origin_queue.tmp"))){
@@ -61,7 +61,7 @@ class Queue
      * @return boolean
      * @context 插入队列
      */
-    static function push(string $queue, array $set)
+    public static function push(string $queue, array $set)
     {
         $_receipt = false;
         if(file_exists($_queue = replace(RESOURCE_PUBLIC."/queue/{$queue}"))){
@@ -92,7 +92,7 @@ class Queue
      * @return array|boolean
      * @context 抽取第一个任务信息
      */
-    static function extract(string $queue)
+    public static function extract(string $queue)
     {
         $_receipt = false;
         if(file_exists($_queue = replace(RESOURCE_PUBLIC."/queue/{$queue}"))){
@@ -118,7 +118,7 @@ class Queue
      * @return boolean
      * @context 清空队列
      */
-    static function clear(string $queue)
+    public static function clear(string $queue)
     {
         # 创建返回值变量
         $_receipt = false;

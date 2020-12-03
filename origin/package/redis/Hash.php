@@ -17,9 +17,10 @@ class Hash
 
     /**
      * @access public
+     * @return void
      * @param object $connect redis主类链接信息
      */
-    function __construct(object $connect)
+    public function __construct(object $connect)
     {
         $this->Connect = $connect;
     }
@@ -32,7 +33,7 @@ class Hash
      * @return int
      * @context 创建hash元素对象内容
      */
-    function create(string $key, string $field, $value)
+    public function create(string $key, string $field, $value)
     {
         return $this->Connect->hSet($key, $field, $value);
     }
@@ -44,7 +45,7 @@ class Hash
      * @return mixed
      * @context 获取指定元素内容
      */
-    function createList(string $key, array $array)
+    public function createList(string $key, array $array)
     {
         return $this->Connect->hMset($key,$array);
     }
@@ -57,7 +58,7 @@ class Hash
      * @return int
      * @context 非替换创建hash元素对象内容
      */
-    function createNE(string $key, string $field, $value)
+    public function createNE(string $key, string $field, $value)
     {
         return $this->Connect->hSetNx($key,$field,$value);
     }
@@ -69,7 +70,7 @@ class Hash
      * @return mixed
      * @context 获取hash元素对象内容
      */
-    function get(string $key, string $field)
+    public function get(string $key, string $field)
     {
         if($this->Connect->exists($key)) {
             if ($this->Connect->hExists($key, $field)) {
@@ -91,7 +92,7 @@ class Hash
      * @return mixed
      * @context 返回hash元素对象列表
      */
-    function lists(string $key)
+    public function lists(string $key)
     {
         if($this->Connect->exists($key)) {
             $_receipt = $this->Connect->hGetAll($key);
@@ -110,7 +111,7 @@ class Hash
      * @return mixed
      * @context 获取hash元素对象内容
      */
-    function getList(string $key, array $fields)
+    public function getList(string $key, array $fields)
     {
         if($this->Connect->exists($key)) {
             $_receipt = $this->Connect->hMGet($key,$fields);
@@ -131,7 +132,7 @@ class Hash
      * @return mixed
      * @context 获取hash元素对象区间列表内容(用于redis翻页功能)
      */
-    function limit(string $key, int $start, string $pattern, int $count)
+    public function limit(string $key, int $start, string $pattern, int $count)
     {
         $_receipt = $this->Connect->hScan($key,$start,$pattern,$count);
         if ($_receipt === "nil")
@@ -145,7 +146,7 @@ class Hash
      * @return mixed
      * @context 返回hash元素对象列表
      */
-    function values(string $key)
+    public function values(string $key)
     {
         return $this->Connect->hVals($key);
     }
@@ -157,7 +158,7 @@ class Hash
      * @return int
      * @context 删除元素对象内容
      */
-    function del(string $key, string $field)
+    public function del(string $key, string $field)
     {
         return $this->Connect->hDel($key,$field);
     }
@@ -170,7 +171,7 @@ class Hash
      * @return mixed
      * @context 设置hash元素对象增量值
      */
-    function plus(string $key, string $field, int $value)
+    public function plus(string $key, string $field, int $value)
     {
         if (is_float($value)) {
             $_receipt = $this->Connect->hIncrByFloat($key, $field, $value);
@@ -186,7 +187,7 @@ class Hash
      * @return mixed
      * @context 获取hash元素对象全部字段名(域)
      */
-    function fields(string $key)
+    public function fields(string $key)
     {
         return $this->Connect->hKeys($key);
     }
@@ -197,7 +198,7 @@ class Hash
      * @return int
      * @context 获取hash元素对象字段内容（域）长度
      */
-    function len(string $key)
+    public function len(string $key)
     {
         return $this->Connect->hLen($key);
     }

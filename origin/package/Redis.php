@@ -25,9 +25,10 @@ class Redis
     /**
      * @access public
      * @param string|null $connect_name 配置源名称
+     * @return void
      * @context 构造函数，预加载数据源配置信息
     */
-    function __construct(?string $connect_name=null)
+    public function __construct(?string $connect_name=null)
     {
         $_connect_config = config('DATA_MATRIX_CONFIG');
         if(is_array($_connect_config)){
@@ -67,7 +68,7 @@ class Redis
      * @return mixed
      * @context 调用键位功能封装
     */
-    function key()
+    public function key()
     {
         return new Key($this->Connect);
     }
@@ -77,7 +78,7 @@ class Redis
      * @return mixed
      * @context 调用字符串功能封装
      */
-    function string()
+    public function string()
     {
         return new Str($this->Connect);
     }
@@ -87,7 +88,7 @@ class Redis
      * @return mixed
      * @context 调用集合包功能封装
      */
-    function set()
+    public function set()
     {
         return new Set($this->Connect);
     }
@@ -97,7 +98,7 @@ class Redis
      * @return mixed
      * @context 调用哈希表功能封装
      */
-    function hash()
+    public function hash()
     {
         return new Hash($this->Connect);
     }
@@ -107,7 +108,7 @@ class Redis
      * @return mixed
      * @context 调用列表功能包封装
      */
-    function lists()
+    public function lists()
     {
         return new Lists($this->Connect);
     }
@@ -117,7 +118,7 @@ class Redis
      * @return mixed
      * @context 调用队列表功能函数封装
      */
-    function seq()
+    public function seq()
     {
         return new Sequence($this->Connect);
     }
@@ -128,7 +129,7 @@ class Redis
      * @return bool
      * @context 执行Redis刷新
     */
-    function flush($obj="all")
+    public function flush($obj="all")
     {
         if($obj == "db" or $obj == 1){
             $_receipt = $this->Connect->flushDB();
@@ -144,7 +145,7 @@ class Redis
      * @return bool
      * @context Select 切换到指定的数据库，数据库索引号 index 用数字值指定，以 0 作为起始索引值
     */
-    function selectDB($db)
+    public function selectDB($db)
     {
         return $this->Connect->select($db);
     }
@@ -154,7 +155,7 @@ class Redis
      * @return int
      * @context 最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示
     */
-    function saveTime()
+    public function saveTime()
     {
         return $this->Connect->lastSave();
     }
@@ -164,7 +165,7 @@ class Redis
      * @return array
      * @context 返回redis服务器时间
     */
-    function time()
+    public function time()
     {
         return $this->Connect->time();
     }
@@ -174,7 +175,7 @@ class Redis
      * @return int
      * @context 返回数据库容量使用信息
     */
-    function dbSize()
+    public function dbSize()
     {
         return $this->Connect->dbSize();
     }
@@ -184,7 +185,7 @@ class Redis
      * @return bool
      * @context 异步执行一个 AOF（AppendOnly File） 文件重写操作
     */
-    function bgAOF()
+    public function bgAOF()
     {
         return $this->Connect->bgrewriteaof();
     }
@@ -194,7 +195,7 @@ class Redis
      * @return bool
      * @context 异步保存当前数据库的数据到磁盘
     */
-    function bgSave()
+    public function bgSave()
     {
         return $this->Connect->bgsave();
     }
@@ -204,16 +205,17 @@ class Redis
      * @return bool
      * @context 保存当前数据库的数据到磁盘
      */
-    function save()
+    public function save()
     {
         return $this->Connect->save();
     }
 
     /**
      * @access public
+     * @return void
      * @context 析构函数，释放连接
     */
-    function __destruct()
+    public function __destruct()
     {
         // TODO: Implement __destruct() method.
         if(!is_null($this->Connect))

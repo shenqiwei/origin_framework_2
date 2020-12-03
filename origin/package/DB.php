@@ -15,7 +15,7 @@ class DB
      * @return object
      * @context Mysql数据库操作方法
      */
-    static function mysql(?string $connect_name=null)
+    public static function mysql(?string $connect_name=null)
     {
         $_dao = new Database($connect_name,Database::RESOURCE_TYPE_MYSQL);
         $_dao->__setSQL($_dao);
@@ -28,7 +28,7 @@ class DB
      * @return object
      * @context PostgreSQL数据库操作方法
      */
-    static function pgsql(?string $connect_name=null)
+    public static function pgsql(?string $connect_name=null)
     {
         $_dao = new Database($connect_name,Database::RESOURCE_TYPE_PGSQL);
         $_dao->__setSQL($_dao);
@@ -41,7 +41,7 @@ class DB
      * @return object
      * @context SQL server数据库操作方法
      */
-    static function mssql(?string $connect_name=null)
+    public static function mssql(?string $connect_name=null)
     {
         $_dao = new Database($connect_name,Database::RESOURCE_TYPE_MSSQL);
         $_dao->__setSQL($_dao);
@@ -54,7 +54,7 @@ class DB
      * @return object
      * @context sqlite数据库操作方法
      */
-    static function sqlite(?string $connect_name=null)
+    public static function sqlite(?string $connect_name=null)
     {
         $_dao = new Database($connect_name,Database::RESOURCE_TYPE_SQLITE);
         $_dao->__setSQL($_dao);
@@ -67,7 +67,7 @@ class DB
      * @return object
      * @context SQL server数据库操作方法
      */
-    static function oracle(?string $connect_name=null)
+    public static function oracle(?string $connect_name=null)
     {
         $_dao = new Database($connect_name,Database::RESOURCE_TYPE_ORACLE);
         $_dao->__setSQL($_dao);
@@ -80,7 +80,7 @@ class DB
      * @return object
      * @context Redis数据库操作方法
      */
-    static function redis(?string $connect_name=null)
+    public static function redis(?string $connect_name=null)
     {
         # 调用Redis数据库核心包
         return new Redis($connect_name);
@@ -92,7 +92,7 @@ class DB
      * @return object
      * @context MongoDB数据库操作方法
      */
-    static function mongodb(?string $connect_name=null)
+    public static function mongodb(?string $connect_name=null)
     {
         $_dao = new Mongodb($connect_name);
         $_dao->__setSQL($_dao);

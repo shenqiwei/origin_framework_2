@@ -34,9 +34,10 @@ class Junction
 
     /**
      * @access public
+     * @return void
      * @context 默认模式，自动加载入口
      */
-    static function initialize()
+    public static function initialize()
     {
         # 应用结构包调用
         if(is_file($_common = replace(ROOT . "/application/common/public.php")))
@@ -272,6 +273,7 @@ class Junction
     /**
      * @access protected
      * @param string $file 文件地址
+     * @return void
      * @context 自动加载模块
      */
     protected static function autoload(string $file)
@@ -307,9 +309,10 @@ class Junction
      * @param string $obj 未加载对象（class|function）
      * @param string $error 错误信息
      * @param string $type 加载类型
+     * @return void
      * @context 加载错误信息
      */
-    static function error(string $obj, string $error, string $type)
+    public static function error(string $obj, string $error, string $type)
     {
         if(DEBUG or ERROR){
             if(!is_file($_404 = replace(RESOURCE_PUBLIC."/template/404.html"))){

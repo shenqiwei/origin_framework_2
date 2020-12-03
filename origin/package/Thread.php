@@ -15,10 +15,15 @@ abstract class Thread
     /**
      * @access protected
      * @var array $Array 预存变量数组
+     */
+    protected $Array;
+
+    /**
+     * @access protected
      * @var object $Thread 执行线程对象
     */
-    protected $Array;
     protected $Thread;
+
     /**
      * @access public
      * @param string $name 传入值名称
@@ -26,13 +31,15 @@ abstract class Thread
      * @return void
      * @context 传入值
      */
-    abstract function set($name,$value);
+    public abstract function set($name,$value);
+
     /**
      * @access public
      * @return void
      * @context 获取值内容
      */
-    abstract function get($name);
+    public abstract function get($name);
+
     /**
      * @access public
      * @param string $name 拦截器名称
@@ -41,14 +48,16 @@ abstract class Thread
      * @return void
      * @context 拦截器
      */
-    abstract function filter($name,$function,$param);
+    public abstract function filter($name,$function,$param);
+
     /**
      * @access public
      * @param object $channel 通道对象
      * @return void
      * @context 执行函数，该函数用于封装操作内容
      */
-    abstract function action($channel);
+    public abstract function action($channel);
+
     /**
      * @access public
      * @static
@@ -56,7 +65,7 @@ abstract class Thread
      * @return mixed
      * @context 线程主执行函数
     */
-    function parallel($object)
+    public function parallel($object)
     {
         # 创建返回值变量
         $_receipt = null;

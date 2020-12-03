@@ -17,9 +17,10 @@ class Str
 
     /**
      * @access public
+     * @return void
      * @param object $connect redis主类链接信息
      */
-    function __construct(object $connect)
+    public function __construct(object $connect)
     {
         $this->Connect = $connect;
     }
@@ -31,7 +32,7 @@ class Str
      * @return mixed
      * @context 创建元素对象值内容
      */
-    function create(string $key, $value)
+    public function create(string $key, $value)
     {
         $_receipt = $this->Connect->set($key,$value);
         if(strtolower($_receipt) === "ok")
@@ -49,7 +50,7 @@ class Str
      * @return boolean
      * @context 创建元素对象，并设置生命周期
      */
-    function createSec(string $key, $value, int $second=0)
+    public function createSec(string $key, $value, int $second=0)
     {
         $_receipt = $this->Connect->setex($key,$value,intval($second));
         if(strtolower($_receipt) === "ok")
@@ -66,7 +67,7 @@ class Str
      * @return int
      * @context 非覆盖创建元素对象值
      */
-    function createOnly(string $key, $value)
+    public function createOnly(string $key, $value)
     {
         return $this->Connect->setnx($key,$value);
     }
@@ -79,7 +80,7 @@ class Str
      * @return boolean
      * @context 创建元素对象，并设置生命周期
      */
-    function createMil(string $key, $value, int $milli=0)
+    public function createMil(string $key, $value, int $milli=0)
     {
         $_receipt = $this->Connect->psetex($key,$value,intval($milli));
         if(strtolower($_receipt) === "ok")
@@ -95,7 +96,7 @@ class Str
      * @return mixed
      * @context 获取内容
      */
-    function get(string $key)
+    public function get(string $key)
     {
         $_receipt = $this->Connect->get($key);
         if ($_receipt === "nil")
@@ -110,7 +111,7 @@ class Str
      * @return int
      * @context 叠加（创建）对象元素值内容
      */
-    function append(string $key, $value)
+    public function append(string $key, $value)
     {
         return $this->Connect->append($key,$value);
     }
@@ -123,7 +124,7 @@ class Str
      * @return int
      * @context 设置元素对象偏移值
      */
-    function cBit(string $key, int $value, int $offset)
+    public function cBit(string $key, int $value, int $offset)
     {
         return $this->Connect->setBit($key,$value,$offset);
     }
@@ -135,7 +136,7 @@ class Str
      * @return int
      * @context 获取元素对象偏移值
      */
-    function gBit(string $key, int $value)
+    public function gBit(string $key, int $value)
     {
         return $this->Connect->getBit($key,$value);
     }
@@ -146,7 +147,7 @@ class Str
      * @return int
      * @context 检索元素对象值内容长度
      */
-    function getLen(string $key)
+    public function getLen(string $key)
     {
         return $this->Connect->strlen($key);
     }
@@ -159,7 +160,7 @@ class Str
      * @return object
      * @context 检索元素对象值（区间截取）内容，（大于0的整数从左开始执行，小于0的整数从右开始执行）
      */
-    function getRange(string $key, int $start=1, int $end=-1)
+    public function getRange(string $key, int $start=1, int $end=-1)
     {
         $_receipt = $this->Connect->getRange($key,$start,$end);
         if($_receipt === "nil")
@@ -174,7 +175,7 @@ class Str
      * @return mixed
      * @context 替换原有值内容，并返回原有值内容
      */
-    function getRollback(string $key, $value)
+    public function getRollback(string $key, $value)
     {
         $_receipt = $this->Connect->getSet($key,$value);
         if($_receipt === "nil")
@@ -188,7 +189,7 @@ class Str
      * @return boolean
      * @context 创建元素列表
      */
-    function createList(array $columns)
+    public function createList(array $columns)
     {
         $_receipt = $this->Connect->mset($columns);
         if(strtolower($_receipt) === "ok")
@@ -204,7 +205,7 @@ class Str
      * @return int
      * @context 非替换创建元素列表
      */
-    function createListOnly(array $columns)
+    public function createListOnly(array $columns)
     {
         return $this->Connect->msetnx($columns);
     }
@@ -215,7 +216,7 @@ class Str
      * @return mixed
      * @context 检索元素列表
      */
-    function getList(array $keys)
+    public function getList(array $keys)
     {
         $_receipt = $this->Connect->mget($keys);
         if($_receipt === "nil")
@@ -230,7 +231,7 @@ class Str
      * @return mixed
      * @context 对应元素（数据）指定值自增
      */
-    function plus(string $key, int $increment=1)
+    public function plus(string $key, int $increment=1)
     {
         # 判断系数条件是否为大于的参数值
         if(intval($increment) > 1){
@@ -253,7 +254,7 @@ class Str
      * @return mixed
      * @context 对应元素（数据）指定值自减
      */
-    function minus(string $key, int $decrement=1)
+    public function minus(string $key, int $decrement=1)
     {
         # 判断系数条件是否为大于的参数值
         if(intval($decrement) > 1)

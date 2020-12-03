@@ -17,9 +17,10 @@ class Sequence
 
     /**
      * @access public
+     * @return void
      * @param object $connect redis主类链接信息
      */
-    function __construct(object $connect)
+    public function __construct(object $connect)
     {
         $this->Connect = $connect;
     }
@@ -32,7 +33,7 @@ class Sequence
      * @return int
      * @context 序列增加元素对象内容值
      */
-    function add(string $key, $param, $value)
+    public function add(string $key, $param, $value)
     {
         return $this->Connect->zAdd($key,$param,$value);
     }
@@ -43,7 +44,7 @@ class Sequence
      * @return int
      * @context 返回序列中元素对象内容数
      */
-    function count(string $key)
+    public function count(string $key)
     {
         return $this->Connect->zCard($key);
     }
@@ -56,9 +57,8 @@ class Sequence
      * @return int
      * @context 序列元素对象中区间值数量
      */
-    function mMCount(string $key, string $min, string $max)
+    public function mMCount(string $key, string $min, string $max)
     {
-        if($min > $max)
         return $this->Connect->zCount($key,$min,$max);
     }
 
@@ -70,7 +70,7 @@ class Sequence
      * @return mixed
      * @context 序列中元素对象值增加自增系数
      */
-    function ai(string $key, $increment, $value)
+    public function ai(string $key, $increment, $value)
     {
         $_receipt = $this->Connect->zIncrBy($key,$increment,$value);
         if ($_receipt === "nil")
@@ -87,7 +87,7 @@ class Sequence
      * @return int
      * @context 搜索两个序列指定系数成员内容，并存入新的序列中
      */
-    function different(string $new, string $key, $param, string $second)
+    public function different(string $new, string $key, $param, string $second)
     {
         return $this->Connect->zInterStore($new,$key,$param,$second);
     }
@@ -100,7 +100,7 @@ class Sequence
      * @return int
      * @context 序列中字典区间值数量
      */
-    function dictCount(string $key, string $min, string $max)
+    public function dictCount(string $key, string $min, string $max)
     {
         return $this->Connect->zLexCount($key,$min,$max);
     }
@@ -113,7 +113,7 @@ class Sequence
      * @return mixed
      * @context 序列元素对象指定区间内容对象内容
      */
-    function range(string $key, int $min, int $max)
+    public function range(string $key, int $min, int $max)
     {
         return $this->Connect->zRange($key,$min,$max);
     }
@@ -126,7 +126,7 @@ class Sequence
      * @return mixed
      * @context 序列元素对象指定字典区间内容
      */
-    function dictRange(string $key, string $min, string $max)
+    public function dictRange(string $key, string $min, string $max)
     {
         return $this->Connect->zRangeByLex($key,$min,$max);
     }
@@ -139,7 +139,7 @@ class Sequence
      * @return mixed
      * @context 序列元素对象指定分数区间内容
      */
-    function limitRange(string $key, int $min, int $max)
+    public function limitRange(string $key, int $min, int $max)
     {
         return $this->Connect->zRangeByScore($key,$min,$max);
     }
@@ -151,7 +151,7 @@ class Sequence
      * @return mixed
      * @context 返回有序集合中指定成员的索引
      */
-    function index(string $key, $value)
+    public function index(string $key, $value)
     {
         $_receipt = $this->Connect->zRank($key,$value);
         if ($_receipt === "nil")
@@ -166,7 +166,7 @@ class Sequence
      * @return int
      * @context 移除有序集合中的一个成员
      */
-    function remove(string $key, $value)
+    public function remove(string $key, $value)
     {
         return $this->Connect->zRem($key,$value);
     }
@@ -179,7 +179,7 @@ class Sequence
      * @return int
      * @context 移除有序集合中给定的字典区间的所有成员
      */
-    function dictRemove(string $key, string $start, string $end)
+    public function dictRemove(string $key, string $start, string $end)
     {
         return $this->Connect->zRemRangeByLex($key,$start,$end);
     }
@@ -192,7 +192,7 @@ class Sequence
      * @return int
      * @context 移除有序集中，指定排名(rank)区间内的所有成员
      */
-    function dictRank(string $key, string $start, string $end)
+    public function dictRank(string $key, string $start, string $end)
     {
         return $this->Connect->zRemRangeByRank($key,$start,$end);
     }
@@ -205,7 +205,7 @@ class Sequence
      * @return int
      * @context 移除有序集中，指定分数（score）区间内的所有成员
      */
-    function dictScore(string $key, int $min, int $max)
+    public function dictScore(string $key, int $min, int $max)
     {
         return $this->Connect->zRemRangeByScore($key,$min,$max);
     }
@@ -218,7 +218,7 @@ class Sequence
      * @return mixed
      * @context 返回有序集中，指定区间内的成员
      */
-    function descRange(string $key, string $start, string $end)
+    public function descRange(string $key, string $start, string $end)
     {
         $_receipt = $this->Connect->zRevRange($key,$start,$end);
         if ($_receipt === "nil")
@@ -233,7 +233,7 @@ class Sequence
      * @return string
      * @context 返回有序集中，成员的分数值
      */
-    function score(string $key, $value)
+    public function score(string $key, $value)
     {
         $_receipt = $this->Connect->zScore($key,$value);
         if ($_receipt === "nil")

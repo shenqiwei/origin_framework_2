@@ -12,9 +12,10 @@ class Output
     /**
      * @access public
      * @param array $array 数据
+     * @return void
      * @context Json字符串界面内容输出
      */
-    static function json(array $array)
+    public static function json(array $array)
     {
         if(is_array($array)) $array = json_encode($array);
         header("Content-Type:application/json;charset=utf-8");
@@ -27,9 +28,10 @@ class Output
      * @param string $url 跳转地址
      * @param int $time 倒计时时间
      * @param array $setting 模板显示内容设置
+     * @return void
      * @context 输出预设模板内容
     */
-    static function output(string $message, string $url="#", int $time=5, array $setting=array())
+    public static function output(string $message, string $url="#", int $time=5, array $setting=array())
     {
         $_time = htmlspecialchars(trim($time));
         $_message =  htmlspecialchars(trim($message));

@@ -56,9 +56,10 @@ class Mongodb
     /**
      * @access public
      * @param string|null $connect_name 配置源名称
+     * @return void
      * @context 构造函数，预加载数据源配置信息
      */
-    function __construct(?string $connect_name=null)
+    public function __construct(?string $connect_name=null)
     {
         $_connect_config = config('DATA_MATRIX_CONFIG');
         if(is_array($_connect_config)) {
@@ -100,7 +101,7 @@ class Mongodb
      * @param object $object
      * @context 回传类对象信息
      */
-    function __setSQL(object $object)
+    public function __setSQL(object $object)
     {
         $this->_Object = $object;
     }
@@ -127,7 +128,7 @@ class Mongodb
      * @return object
      * @context 集合（表）别名语法
      */
-    function table(string $table)
+    public function table(string $table)
     {
         return $this->set($table);
     }
@@ -138,7 +139,7 @@ class Mongodb
      * @return object
      * @context 集合对象约束函数
      */
-    function set(string $set)
+    public function set(string $set)
     {
         $this->_Set = null;
         # 根据SQL数据库命名规则判断数据表名是否符合规则要求，如果符合装在进SQL模块Table变量中
@@ -166,7 +167,7 @@ class Mongodb
      * @return object
      * @context 数据数组方法
      */
-    function data(array $data)
+    public function data(array $data)
     {
         $this->_Data = array();
         /**
@@ -214,7 +215,7 @@ class Mongodb
      * @return object
      * @context 条件约束方法
      */
-    function where($field, $value=null, string $symbol="eq")
+    public function where($field, $value=null, string $symbol="eq")
     {
         if(is_array($field)){
             $this->_Where = $field;
@@ -275,7 +276,7 @@ class Mongodb
      * @return object
      * @context 映射约束方法
      */
-    function projection(array $projection)
+    public function projection(array $projection)
     {
         if(is_array($projection)){
             $this->_Projection = $projection;
@@ -302,7 +303,7 @@ class Mongodb
      * @return object
      * @context 排序别名语法
      */
-    function order(string $field, string $type)
+    public function order(string $field, string $type)
     {
         return $this->sort($field,$type);
     }
@@ -314,7 +315,7 @@ class Mongodb
      * @return object
      * @context 排序约束方法
      */
-    function sort(string $field, string $type="asc")
+    public function sort(string $field, string $type="asc")
     {
         $this->_Sort = array();
         # 使用字符串作为唯一数据类型，通过对参数进行验证，判断参数数据结构，创建排序参数变量
@@ -362,7 +363,7 @@ class Mongodb
      * @return object
      * @context 显示数量方法
      */
-    function limit(int $start, int $length=0)
+    public function limit(int $start, int $length=0)
     {
         if(is_int($start) and $start >= 0){
             if(is_int($length) and $length > 0){
@@ -387,7 +388,7 @@ class Mongodb
      * @return object
      * @context 跳过数量方法
      */
-    function skip(int $skip)
+    public function skip(int $skip)
     {
         $this->_Skip = intval($skip);
         return $this->_Object;
@@ -405,7 +406,7 @@ class Mongodb
      * @return object
      * @context 执行同步更新设置函数
      */
-    function multi(bool $set=false)
+    public function multi(bool $set=false)
     {
         if(is_bool($set)){
             $this->_Multi = $set;
@@ -425,7 +426,7 @@ class Mongodb
      * @return object
      * @context 执行无效对象新建设置函数
      */
-    function upsert(bool $set=false)
+    public function upsert(bool $set=false)
     {
         if(is_bool($set)){
             $this->_Upsert = $set;
@@ -445,7 +446,7 @@ class Mongodb
      * @return object
      * @context 执行读取分离设置函数
      */
-    function readPreference(bool $set=false)
+    public function readPreference(bool $set=false)
     {
         if(is_bool($set)){
             $this->_ReadPreference = $set;
@@ -459,7 +460,7 @@ class Mongodb
      * @throws
      * @context 查询总数
      */
-    function count()
+    public function count()
     {
         $_receipt = null;
         try{
@@ -499,7 +500,7 @@ class Mongodb
      * @throws
      * @context 查询
      */
-    function select()
+    public function select()
     {
         $_receipt = null;
         try{
@@ -550,7 +551,7 @@ class Mongodb
      * @return mixed
      * @context 插入
      */
-    function insert()
+    public function insert()
     {
         $_receipt = null;
         try{
@@ -589,7 +590,7 @@ class Mongodb
      * @return mixed
      * @context 修改
      */
-    function update()
+    public function update()
     {
         $_receipt = null;
         try{
@@ -623,7 +624,7 @@ class Mongodb
      * @return mixed
      * @context 删除
      */
-    function delete()
+    public function delete()
     {
         $_receipt = null;
         try{

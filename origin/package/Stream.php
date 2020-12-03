@@ -49,9 +49,10 @@ class Stream
      * @access public
      * @param array $option 操作数组，默认值 array() <空数组>
      * @param array|null $params 参数数组，默认值 null <空>
+     * @return void
      * @context 创建上下文信息流
      */
-    function context(array $option = array(), ?array $params = null)
+    public function context(array $option = array(), ?array $params = null)
     {
         $this->Stream = stream_context_create($option, $params);
     }
@@ -61,9 +62,10 @@ class Stream
      * @param string $addr 地址信息（ipv4|unix）
      * @param int|null $flag 设置协议类型，默认值 null,（STREAM_SERVER_BIND<UDP>|STREAM_SERVER_LISTEN）
      * @param boolean $context 接入流，默认值 false<不接入>，true 接入
+     * @return void
      * @context 创建套字节信息流
      */
-    function socket(string $addr, ?int $flag = null, bool $context = false)
+    public function socket(string $addr, ?int $flag = null, bool $context = false)
     {
         if ($context)
             $this->Socket = stream_socket_server($addr, $this->ErrCode, $this->Error, $flag, $this->Stream);
@@ -80,8 +82,10 @@ class Stream
      * STREAM_CLIENT_ASYNC_CONNECT 客户端异步连接流
      * STREAM_CLIENT_PERSISTENT 客户端持续连接流
      * @param boolean $context 接入流，默认值 false<不接入>，true 接入
+     * @return void
+     * @context 创建客户端连接
      */
-    function client(string $addr, ?float $cycle=null, int $flag=STREAM_CLIENT_CONNECT, bool $context=false)
+    public function client(string $addr, ?float $cycle=null, int $flag=STREAM_CLIENT_CONNECT, bool $context=false)
     {
         if($context)
             $this->Client = stream_socket_client($addr,$this->ErrCode,$this->Error,$cycle,$flag,$this->Stream);
@@ -96,7 +100,7 @@ class Stream
      * @return resource
      * @context 接受套字节服务端连接
      */
-    function accept(string &$socketName, ?float $cycle=null)
+    public function accept(string &$socketName, ?float $cycle=null)
     {
         if(is_null($cycle))
             $_cycle = floatval(ini_get("default_socket_timeout"));
@@ -115,7 +119,7 @@ class Stream
      * @return int 返回字节数
      * @context 获取信息，或略连接状态
      */
-    function recv(int $max=1024, int $flag=MSG_DONTWAIT, ?string &$addr=null)
+    public function recv(int $max=1024, int $flag=MSG_DONTWAIT, ?string &$addr=null)
     {
         return stream_socket_recvfrom($this->Socket,$max,$flag,$addr);
     }
@@ -129,7 +133,7 @@ class Stream
      * @return int
      * @context 发送信息，或略连接状态
      */
-    function send(string $buffer, int $flag=STREAM_OOB, ?string $addr=null)
+    public function send(string $buffer, int $flag=STREAM_OOB, ?string $addr=null)
     {
         return stream_socket_sendto($this->Client,$buffer,$flag,$addr);
     }
@@ -141,7 +145,7 @@ class Stream
      * @return boolean
      * @context 注册过滤器
      */
-    function filter(string $name, string $class)
+    public function filter(string $name, string $class)
     {
         return stream_filter_register($name,$class);
     }
@@ -158,7 +162,7 @@ class Stream
      * @return resource
      * @context 设置指定信息流的过滤器
      */
-    function filterAp(string $name, $resource=null, int $type=STREAM_FILTER_ALL, $param=null)
+    public function filterAp(string $name, $resource=null, int $type=STREAM_FILTER_ALL, $param=null)
     {
         if(is_null($resource))
             $_resource = $this->Stream;
@@ -179,7 +183,7 @@ class Stream
      * @return resource
      * @context 设置指定信息流的过滤器
      */
-    function filterPre(string $name, $resource=null, int $type=STREAM_FILTER_ALL, $param=null)
+    public function filterPre(string $name, $resource=null, int $type=STREAM_FILTER_ALL, $param=null)
     {
         if(is_null($resource))
             $_resource = $this->Stream;
@@ -194,7 +198,7 @@ class Stream
      * @return boolean
      * @context 删除已注册过滤器
      */
-    function filterRe($resource=null)
+    public function filterRe($resource=null)
     {
         if(is_null($resource))
             $_resource = $this->Stream;
@@ -208,7 +212,7 @@ class Stream
      * @return boolean
      * @context 关闭客户端连接源
      */
-    function close()
+    public function close()
     {
         return fclose($this->Client);
     }
@@ -218,7 +222,7 @@ class Stream
      * @return boolean
      * @context 关闭客户端连接源
      */
-    function cancel()
+    public function cancel()
     {
         return fclose($this->Socket);
     }
@@ -229,7 +233,7 @@ class Stream
      * @return boolean
      * @context 注销套字节连接源
      */
-    function shutdown(int $type=STREAM_SHUT_RDWR)
+    public function shutdown(int $type=STREAM_SHUT_RDWR)
     {
         return stream_socket_shutdown($this->Socket,$type);
     }
@@ -239,7 +243,7 @@ class Stream
      * @return string
      * @context 获取错误信息
     */
-    function getError()
+    public function getError()
     {
         return $this->Error;
     }
